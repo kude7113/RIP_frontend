@@ -11,7 +11,7 @@ interface Props {
     buttonTitle?: string
 }
 
-const InputField: FC<Props> = ({ value, setValue, onSubmit, loading, placeholder, buttonTitle = 'Искать' }) => (
+const InputField: FC<Props> = ({ value, setValue, onSubmit, loading, placeholder, buttonTitle = 'Найти' }) => (
     <div className="inputField">
         <InputGroup className="mb-3 border-custom">
             <Form.Control

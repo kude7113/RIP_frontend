@@ -18,13 +18,13 @@ export const FineCard: FC<ICardProps> = ({
                                              imageClickHandler
                                          }) => {
     return (
-        <Card className="card">
+        <Card className="fineCard">
             <Card.Img className="cardImage" variant="top" src={imge || image} height={100} width={100} onClick={imageClickHandler}/>
             <Card.Body>
                 <Card.Title className="textStyle">{title}</Card.Title>
                 <div className="cardPriceButtonWrapper">
                     <div className="cardPrice">{price} ₽</div>
-                    <Button className="cardButton" target="_blank">
+                    <Button className="cardButton" target="_blank" onClick={imageClickHandler}>
                         Подробнее
                     </Button>
                 </div>

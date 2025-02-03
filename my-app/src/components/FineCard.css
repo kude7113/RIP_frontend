@@ -1,5 +1,5 @@
 /* Основные стили карточки */
-.card {
+.fineCard {
     width: 100%;
     max-width: 300px; /* Максимальная ширина карточки */
     border: 2px solid #2B88B7 !important; /* Цвет обводки карточки */
