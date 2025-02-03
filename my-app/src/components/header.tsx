@@ -4,7 +4,7 @@ const Header = () => {
     return (
         <header>
             <div className="header-container">
-                <a href="http://localhost:8080/">
+                <a href="http://localhost:3000/">
                     <img
                         className="emblem"
                         src="http://127.0.0.1:9000/img/logo.png"

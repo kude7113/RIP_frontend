@@ -24,7 +24,7 @@ export const FineCard: FC<ICardProps> = ({
                 <Card.Title className="textStyle">{title}</Card.Title>
                 <div className="cardPriceButtonWrapper">
                     <div className="cardPrice">{price} ₽</div>
-                    <Button className="cardButton" target="_blank" onClick={imageClickHandler}>
+                    <Button className="cardButton" onClick={imageClickHandler}>
                         Подробнее
                     </Button>
                 </div>

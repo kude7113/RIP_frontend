@@ -2,6 +2,7 @@
 .fineCard {
     width: 100%;
     max-width: 300px; /* Максимальная ширина карточки */
+    height: 450px;
     border: 2px solid #2B88B7 !important; /* Цвет обводки карточки */
     border-radius: 0 !important; /* Убрано скругление на краях карточки */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -31,6 +32,8 @@
     font-weight: bold;
     margin-bottom: 8px;
     color: #333;
+    flex-grow: 1;
+    min-height: 70px; /* Фиксированная высота блока текста для выравнивания карточек */
 }
 
 /* Стили цены */
