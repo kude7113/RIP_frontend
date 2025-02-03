@@ -1,0 +1,41 @@
+header {
+    background: linear-gradient(to bottom, #2785B7, #165B84);
+    padding: 25px 0;
+    font-family: Arial, sans-serif;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+}
+
+.title-container {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    margin-left: 10px; /* Держим текст прижатым к эмблеме */
+}
+
+h1 {
+    color: white !important;
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.emblem {
+    width: 120px;
+    height: auto;
+}
+
+.map {
+    position: absolute;
+    right: 20px;
+    width: 150px;
+    height: auto;
+}

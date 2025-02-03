@@ -1,0 +1,66 @@
+/* Основные стили карточки */
+.card {
+    width: 100%;
+    max-width: 300px; /* Максимальная ширина карточки */
+    border: 2px solid #2B88B7 !important; /* Цвет обводки карточки */
+    border-radius: 0 !important; /* Убрано скругление на краях карточки */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px; /* Внутренний отступ для карточки */
+    overflow: visible; /* Исправлено для скругления изображения */
+    margin-top: 20px; /* Отступ между карточкой и другими элементами */
+}
+
+/* Стили изображения в карточке */
+.cardImage {
+    width: 100%; /* Изображение занимает всю ширину контейнера */
+    height: auto;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 8px; /* Скругление по бокам изображения */
+}
+
+/* Стили тела карточки */
+.cardBody {
+    padding: 16px;
+    text-align: center;
+}
+
+/* Заголовок карточки */
+.textStyle {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+/* Стили цены */
+.cardPrice {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+}
+
+/* Стили кнопки */
+.cardButton {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #2B88B7 !important; /* Цвет кнопки */
+    border: none !important; /* Убрана обводка */
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.cardButton:hover {
+    background-color: #165B84 !important;
+}
+
+/* Стили обертки для цены и кнопки */
+.cardPriceButtonWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+}
