@@ -4,11 +4,13 @@ import FinesPage from "./pages/FinesPage.tsx";
 import { ROUTES } from "./modules/Routes.tsx";
 import {HomePage} from "./pages/HomePage.tsx";
 import Header from "./components/header.tsx";
+import {Navbaar} from "./components/Navbar.tsx";
 
 function App() {
     return (
         <BrowserRouter>
-            <Header></Header>
+            <Header/>
+            <Navbaar/>
             <Routes>
                 <Route path={ROUTES.HOME} index element={<HomePage />} />
                 <Route path={ROUTES.ALBUMS} element={<FinesPage />} />

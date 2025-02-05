@@ -13,7 +13,7 @@ export interface finesResult {
 }
 
 export const getFinesByName = async (name = ""): Promise<finesResult> => {
-    return fetch(`http://localhost:8000/fine?searchFines=${name}`).then(
+    return fetch(`/api/fine?searchFines=${name}`).then(
         (response) => response.json()
     );
 };
@@ -21,7 +21,7 @@ export const getFinesByName = async (name = ""): Promise<finesResult> => {
 export const getAlbumById = async (
     id: number | string
 ): Promise<Fine> => {
-    return fetch(`http://localhost:8000/fine/?id=${id}`).then(
+    return fetch(`/api/fine/?id=${id}`).then(
         (response) => response.json()
     );
 };

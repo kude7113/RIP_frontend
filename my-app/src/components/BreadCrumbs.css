@@ -1,6 +1,6 @@
 :root {
-    --active_color: black;
-    --additional_color: gray;
+    --active_color: #165B84;
+    --additional_color: #2785B7;
 }
 
 .breadcrumbs {

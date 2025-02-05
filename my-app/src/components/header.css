@@ -1,6 +1,6 @@
 header {
     background: linear-gradient(to bottom, #2785B7, #165B84);
-    padding: 25px 0;
+    padding: 10px 0;
     font-family: Arial, sans-serif;
 }
 
@@ -8,7 +8,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 0 20px;
     position: relative;

@@ -4,3 +4,15 @@
     align-items: center;
     height: 100vh;
 }
+
+.album_page_loader_block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px; /* Отступ от поля ввода */
+}
+
+.album_page_loader_block .spinner-border {
+    color: #2B88B7 !important;
+}

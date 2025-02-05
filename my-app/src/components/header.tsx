@@ -16,7 +16,7 @@ const Header = () => {
                 </div>
                 <img
                     className="map"
-                    src="https://static.overlay-tech.com/assets/a3d45847-30bf-45d6-a6be-f42cf7f962a6.png"
+                    src="http://127.0.0.1:9000/img/russia.png"
                     alt="Карта"
                 />
             </div>

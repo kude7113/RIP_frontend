@@ -1,0 +1,31 @@
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 150px); /* Учитываем высоту навбара */
+    text-align: center;
+    flex-direction: column;
+}
+
+.home-text {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.home-button {
+    background-color: #2B88B7 !important;
+    border: none !important;
+    color: white !important;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    text-decoration: none !important; /* Убираем подчеркивание */
+    display: inline-block;
+}
+
+.home-button:hover,
+.home-button:focus {
+    background-color: #23709A !important;
+    color: white !important;
+    text-decoration: none !important;
+}
