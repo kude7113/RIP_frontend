@@ -1,33 +1,42 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    min-width: 800px;
-}
-.containerLoading {
-    filter: blur(8px);
-}
-
-@media (max-width: 600px) {
-    .container{
-        min-width: auto;
-    }
-}
-
 .full-width-row {
     display: flex;
-    justify-content: space-around;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 30px;
     padding: 20px;
 }
 
+/* ✅ Гарантированное центрирование единственной карточки */
+.full-width-row > *:only-child {
+    margin: 0 auto;
+}
+
+/* ✅ Фикс для правильного распределения 2-3 карточек */
+@media (max-width: 1024px) {
+    .full-width-row {
+        justify-content: space-around !important;
+    }
+}
+
+/* ✅ Центрирование карточек на мобильных */
+@media (max-width: 768px) {
+    .full-width-row {
+        justify-content: center !important;
+    }
+    .full-width-row .col {
+        flex: 1 1 auto;
+        max-width: 350px;
+    }
+}
+
+
+/* ✅ Фикс корзины */
 .cart-icon {
     position: fixed;
-    bottom: 30px; /* Отступ от нижнего края экрана */
-    left: 20px;   /* Отступ от левого края экрана */
-    width: 50px;  /* Размер значка корзины */
+    bottom: 30px;
+    left: 20px;
+    width: 50px;
     height: 50px;
-    z-index: 1000; /* Устанавливает высокий приоритет отображения */
+    z-index: 1000;
 }
 
 .cart-icon img {
@@ -39,22 +48,23 @@
 
 .cart-icon .badge {
     position: absolute;
-    top: -13px; /* Настройте отступ сверху */
-    right: -13px; /* Настройте отступ справа */
-    background-color: #2785B7; /* Цвет кружка */
-    color: white; /* Цвет текста */
+    top: -13px;
+    right: -13px;
+    background-color: #2785B7;
+    color: white;
     border-radius: 50%;
-    padding: 7px 7px; /* Размеры кружка */
-    font-size: 12px; /* Размер текста */
-    font-weight: bold; /* Толщина шрифта */
+    padding: 7px 7px;
+    font-size: 12px;
+    font-weight: bold;
 }
 
+/* ✅ Спиннер при загрузке */
 .loadingBg {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin-top: 20px; /* Отступ от поля ввода */
+    margin-top: 20px;
 }
 
 .loadingBg .spinner-border {

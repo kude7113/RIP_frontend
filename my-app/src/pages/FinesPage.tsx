@@ -77,9 +77,15 @@ const FinesPage: FC = () => {
                         <h1>К сожалению, пока ничего не найдено :(</h1>
                     </div>
                 ) : (
-                    <Row xs={1} sm={2} md={4} className="g-4 full-width-row">
+                    <Row
+                        xs={1}
+                        sm={2}
+                        md={3}
+                        lg={4}
+                        className={`g-4 full-width-row ${fines.length === 1 ? "justify-content-center" : "justify-content-evenly"}`}
+                    >
                         {fines.map((item, index) => (
-                            <Col key={index}>
+                            <Col key={index} className="d-flex">
                                 <FineCard
                                     imageClickHandler={() => handleCardClick(item.fineID)}
                                     {...item}
@@ -87,6 +93,7 @@ const FinesPage: FC = () => {
                             </Col>
                         ))}
                     </Row>
+
                 ))}
             <a id="{{ .resID }}" className="cart-icon">
                 <img src="https://www.svgrepo.com/show/133694/act.svg" alt="Корзина"/>

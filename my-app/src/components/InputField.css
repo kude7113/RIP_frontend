@@ -1,7 +1,26 @@
 .inputField {
-    margin-left: 230px;
-    margin-right: 230px;
+    width: 50%; /* Основная ширина - половина экрана */
+    max-width: 700px; /* Ограничиваем максимальную ширину */
+    min-width: 280px; /* Минимальная ширина на маленьких экранах */
+    margin: 0 auto; /* Центрируем */
 }
+
+/* Для узких экранов от 700px и ниже - увеличиваем ширину */
+@media (max-width: 700px) {
+    .inputField {
+        width: 80%;
+        max-width: 350px; /* Чтобы не вылезало за границы */
+    }
+}
+
+/* Для телефонов */
+@media (max-width: 480px) {
+    .inputField {
+        width: 90%;
+        max-width: 320px; /* Чуть меньше на телефонах */
+    }
+}
+
 
 /* Убираем скругление углов */
 .border-custom,
@@ -34,4 +53,3 @@
     background-color: #165B84 !important;
     border-color: #165B84 !important;
 }
-

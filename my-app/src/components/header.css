@@ -1,9 +1,11 @@
+/* Стили header */
 header {
     background: linear-gradient(to bottom, #2785B7, #165B84);
     padding: 10px 0;
     font-family: Arial, sans-serif;
 }
 
+/* Контейнер хедера */
 .header-container {
     display: flex;
     justify-content: space-between;
@@ -14,13 +16,15 @@ header {
     position: relative;
 }
 
+/* Блок заголовка */
 .title-container {
     display: flex;
     align-items: center;
     flex-grow: 1;
-    margin-left: 10px; /* Держим текст прижатым к эмблеме */
+    margin-left: 10px;
 }
 
+/* Заголовок */
 h1 {
     color: white !important;
     font-size: 32px;
@@ -28,14 +32,30 @@ h1 {
     text-transform: uppercase;
 }
 
+/* Логотип */
 .emblem {
     width: 120px;
     height: auto;
 }
 
+/* Карта */
 .map {
     position: absolute;
     right: 20px;
     width: 150px;
     height: auto;
+}
+
+/* ✅ Адаптивность: скрываем карту при сужении экрана */
+@media (max-width: 768px) {
+    .map {
+        display: none;
+    }
+}
+
+/* ✅ Адаптивность: скрываем заголовок на очень узких экранах */
+@media (max-width: 480px) {
+    h1 {
+        display: none;
+    }
 }
