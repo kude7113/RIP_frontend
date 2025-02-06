@@ -16,7 +16,7 @@
     border-radius: 10px !important;
     margin-right: 20px !important;
     width: 300px !important;
-    height: 300px !important;
+    height: 250px !important;
     object-fit: cover !important;
 }
 
@@ -44,4 +44,29 @@
     color: black !important;
     font-size: 24px !important;
     font-weight: bold !important;
+}
+
+/* Адаптивные стили для узких экранов */
+@media (max-width: 768px) {
+    .moreCard {
+        flex-direction: column !important;
+        align-items: center !important;
+        width: 70% !important;       /* Занимает 90% от ширины экрана */
+        max-width: 500px !important;  /* Но не более 500px */
+        margin: 20px auto !important; /* Немного уменьшаем отступ сверху/снизу */
+    }
+    .moreCardImage {
+        width: 100% !important;
+        height: auto !important;
+        margin-right: 0 !important;
+        margin-bottom: 20px !important;
+    }
+    .detailedDescription {
+        display: none !important;
+    }
+    .moreCardPriceButtonWrapper {
+        position: static !important;
+        margin-top: 20px !important;
+        justify-content: center !important;
+    }
 }

@@ -18,10 +18,16 @@ export const MoreCard: FC<ICardProps> = ({
                                          }) => {
     return (
         <Card className="moreCard">
-            <Card.Img className="moreCardImage" variant="top" src={imge || image} height={100} width={100}/>
+            <Card.Img
+                className="moreCardImage"
+                variant="top"
+                src={imge || image}
+                height={100}
+                width={100}
+            />
             <Card.Body>
                 <Card.Title className="textStyleMore">{title}</Card.Title>
-                <Card.Text>
+                <Card.Text className="detailedDescription">
                     {fullInf}
                 </Card.Text>
                 <div className="moreCardPriceButtonWrapper">
