@@ -1,16 +1,18 @@
-import "./Header.css"; // Подключение CSS для стилей
+import "./Header.css";
+import {Link} from "react-router-dom"; // Подключение CSS для стилей
+
 
 const Header = () => {
     return (
         <header>
             <div className="header-container">
-                <a href="http://localhost:3000/">
+                <Link to="/">
                     <img
                         className="emblem"
                         src="http://127.0.0.1:9000/img/logo.png"
                         alt="Эмблема"
                     />
-                </a>
+                </Link>
                 <div className="title-container">
                     <h1>ГОСАВТОИНСПЕКЦИЯ</h1>
                 </div>
