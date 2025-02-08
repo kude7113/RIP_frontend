@@ -11,8 +11,8 @@ export default defineConfig({
         enabled: true,
       },
       manifest: {
-        name: "Tile Notes",
-        short_name: "Tile Notes",
+        name: "GIBDD",
+        short_name: "GIBDD",
         start_url: "/RIP_frontend/",
         scope: "/RIP_frontend/",
         display: "standalone",
