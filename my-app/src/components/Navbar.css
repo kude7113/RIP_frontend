@@ -12,20 +12,31 @@
 }
 
 .navbar-custom .nav-link {
-    color: #165B84 !important; /* Цвет текста */
+    color: #165B84 !important; /* Базовый цвет текста */
     font-weight: bold !important;
     text-transform: uppercase !important;
-    margin: 0 10px !important; /* Добавляем отступы между элементами */
-    transition: background; /* Плавный переход */
+    margin: 0 10px !important; /* Отступы между элементами */
+    transition: background 0.3s, color 0.3s; /* Плавный переход для фона и цвета */
     display: inline-block !important;
     font-size: 15px !important;
 }
 
-.navbar-custom .nav-link:hover, .navbar-custom .nav-link:focus {
-    color: #ffffff !important; /* Белый текст при наведении */
-    background: linear-gradient(to bottom, #2785B7, #165B84); /* Тёмно-синий фон при наведении */
-    border-radius: 0 !important; /* Убираем скругление углов */
-    display: block !important;
+/* Стили при наведении */
+.navbar-custom .nav-link:hover {
+    color: #ffffff !important; /* Белый текст */
+    background: linear-gradient(to bottom, #2785B7, #165B84) !important; /* Тёмно-синий фон */
+}
+
+/* Если элемент в фокусе, но на него не наведена мышь, применяем базовый стиль */
+.navbar-custom .nav-link:focus:not(:hover) {
+    color: #165B84 !important;
+    background: none !important;
+}
+
+/* Переопределяем стили для активного класса (например, от NavLink) */
+.navbar-custom .nav-link.active {
+    color: #165B84 !important;
+    background: none !important;
 }
 
 .navbar-custom .container {
