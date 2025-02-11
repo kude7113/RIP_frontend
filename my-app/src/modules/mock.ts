@@ -51,6 +51,6 @@ export const ALBUMS_MOCK: finesResult = {
             dopInf: "Колличество транспортных средств:"
         }
     ],
-    resCount: 3,
+    resCount: 10,
     resId: 0
 };

@@ -12,16 +12,10 @@ export interface finesResult {
     resId: number;
 }
 
-export const getFinesByName = async (name = ""): Promise<finesResult> => {
-    return fetch(`/api/fine?searchFines=${name}`).then(
-        (response) => response.json()
-    );
-};
-
 export const getAlbumById = async (
     id: number | string
 ): Promise<Fine> => {
-    return fetch(`/api/fine/?id=${id}`).then(
+    return fetch(`http://localhost:8000/fine/${id}`).then(
         (response) => response.json()
     );
 };
