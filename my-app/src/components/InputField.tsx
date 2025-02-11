@@ -1,27 +1,25 @@
 import { FC } from 'react';
 import { Button, InputGroup, Form } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
-import { setSearchValue } from '../redux/searchSlice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../redux/store';
+import {getFinesList, setSearchValue} from '../redux/fineSlice.tsx';
 import './InputField.css';
 
 interface Props {
-    onSubmit: () => void;
     loading?: boolean;
-    placeholder?: string;
-    buttonTitle?: string;
+    value: string
 }
 
-const InputField: FC<Props> = ({ onSubmit, loading, placeholder, buttonTitle = 'Найти' }) => {
-    const dispatch = useDispatch();
-    const searchValue = useSelector((state: RootState) => state.search.value);
+const InputField: FC<Props> = ({ loading,  value}) => {
+
+    const dispatch = useDispatch<AppDispatch>();
 
     return (
         <div className="inputField">
             <InputGroup className="mb-3 border-custom">
                 <Form.Control
-                    placeholder={placeholder}
-                    value={searchValue}
+                    placeholder="Введите название штрафа..."
+                    value={value}
                     aria-label="Search"
                     aria-describedby="basic-addon1"
                     onChange={(event) => dispatch(setSearchValue(event.target.value))}
@@ -31,10 +29,10 @@ const InputField: FC<Props> = ({ onSubmit, loading, placeholder, buttonTitle = '
                     type="submit"
                     id="button-addon1"
                     disabled={loading}
-                    onClick={onSubmit}
+                    onClick={() => dispatch(getFinesList())}
                     className="btn-custom"
                 >
-                    {buttonTitle}
+                    Найти
                 </Button>
             </InputGroup>
         </div>
