@@ -1,0 +1,111 @@
+/* Контейнер карточки */
+.basketCardContainer {
+    display: flex;
+    justify-content: center;
+    align-items: stretch; /* Растягиваем карточку по высоте */
+    border: 2px solid #2785B7;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 700px;
+    margin: 40px auto;
+    height: 120px; /* Фиксированная высота карточки */
+}
+
+/* Левый блок - изображение */
+.basketCardImage {
+    flex-shrink: 0;
+    margin-right: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Изображение */
+.basketCardImg {
+    border-radius: 5px;
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+}
+
+/* Центральный блок - контент */
+.basketCardContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-grow: 1;
+    height: 100%;
+}
+
+/* Заголовок (прижат к верху) */
+.basketCardTitle {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+/* Обертка для кнопки (растягивается на всю высоту карточки) */
+/* Контейнер кнопок (растянутый на всю высоту) */
+.basketCardButtonWrapper {
+    display: flex;
+    flex-direction: row; /* Размещаем кнопки в ряд */
+    justify-content: flex-start; /* Выравниваем влево */
+    gap: 10px; /* Отступ между кнопками */
+    margin-top: auto; /* Прижимаем к нижнему краю */
+}
+
+/* Кнопка "Подробнее" */
+.basketCardLink {
+    background-color: #2785B7;
+    color: white;
+    padding: 6px 12px;
+    text-decoration: none;
+    width: max-content;
+    transition: background-color 0.3s ease;
+    border-radius: 6px;
+}
+
+.basketCardLink:hover {
+    background-color: #1a5d85;
+}
+
+/* Кнопка "Удалить" */
+.basketCardDelete {
+    background-color: #d9534f; /* Красный цвет */
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.basketCardDelete:hover {
+    background-color: #c9302c; /* Темнее при наведении */
+}
+
+
+/* Правый блок - доп. инфо и цена (растягивается) */
+.basketCardInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Раздвигаем элементы */
+    align-items: flex-end;
+    height: 100%; /* Растягиваем блок */
+}
+
+/* Доп. инфо */
+.basketCardInfo p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* Цена (прижимаем к низу) */
+.basketCardPrice {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: auto; /* Прижимает цену к низу */
+}

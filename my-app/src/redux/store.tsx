@@ -2,11 +2,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import fineReducer from './fineSlice.tsx';
 import userReducer from './userSlice';
+import cartReducer from './resolutionSlice.tsx';
 
 export const store = configureStore({
     reducer: {
         fines: fineReducer,
-        user: userReducer
+        user: userReducer,
+        cart: cartReducer
     },
 });
 

@@ -3,9 +3,13 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { DsFines } from "../api/Api.ts";
 import { api  } from "../api";
 import { ALBUMS_MOCK } from "../modules/mock.ts";
+import {fetchCart} from "./resolutionSlice.tsx";
 
 
-interface FinesState {
+
+
+
+export interface FinesState {
     searchValue: string;
     loading: boolean;
     fines: DsFines[];
@@ -38,6 +42,44 @@ export const getFinesList = createAsyncThunk(
     }
 );
 
+export const addFineToResolution = createAsyncThunk(
+    'fine/addFineToResolution',
+    async (fineId: number, thunkAPI) => {
+        try {
+            const response = await api.fine.postFine(fineId);
+            console.log(`✅ Штраф ${fineId} добавлен в резолюцию:`, response.data);
+
+            // ✅ Получаем новый `resId` от сервера
+            let updatedResId = response.data?.resId || localStorage.getItem('resId');
+
+            if (updatedResId && updatedResId !== '0') {
+                console.log(`🔄 Обновляем resId: ${updatedResId}`);
+
+                // ✅ Обновляем `localStorage`
+                localStorage.setItem('resId', updatedResId);
+
+                // ✅ Обновляем `Redux`
+                thunkAPI.dispatch(finesSlice.actions.updateResId(updatedResId));
+
+                // ✅ Дожидаемся обновления Redux перед `fetchCart()`
+                await new Promise((resolve) => setTimeout(resolve, 10));
+
+                // ✅ Загружаем обновленную корзину
+                await thunkAPI.dispatch(fetchCart());
+            } else {
+                console.error("⚠ Ошибка: resId не обновился.");
+            }
+
+            return fineId;
+        } catch (error) {
+            console.error("❌ Ошибка добавления штрафа:", error);
+            return thunkAPI.rejectWithValue("Ошибка при добавлении штрафа");
+        }
+    }
+);
+
+
+
 
 
 
@@ -47,6 +89,9 @@ const finesSlice = createSlice({
     reducers: {
         setSearchValue(state, action) {
             state.searchValue = action.payload;
+        },
+        updateResId(state, action) {
+            state.resId = action.payload; // ✅ Обновляем `resId` в Redux
         },
     },
     extraReducers: (builder) => {
@@ -59,6 +104,7 @@ const finesSlice = createSlice({
                 state.fines = action.payload?.fines ?? []; // Если fines нет, ставим пустой массив
                 state.resCount = action.payload?.resCount ?? 0;
                 state.resId = action.payload?.resId ?? 0;
+                localStorage.setItem('resId', action.payload.resId);
             })
             .addCase(getFinesList.rejected, (state) => {
                 state.loading = false;

@@ -84,6 +84,7 @@ const userSlice = createSlice({
                 state.error = null;
                 localStorage.removeItem('token');
                 localStorage.removeItem('login');
+                localStorage.removeItem('resId');
             })
             .addCase(logoutUserAsync.rejected, (state, action) => {
                 state.error = action.payload as string;

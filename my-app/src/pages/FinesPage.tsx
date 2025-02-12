@@ -8,19 +8,40 @@ import { useNavigate } from "react-router-dom";
 import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from '../redux/store';
-import { getFinesList } from "../redux/fineSlice.tsx";
+import { getFinesList, addFineToResolution } from "../redux/fineSlice.tsx";
 import { DsFines } from "../api/Api.ts";
+import {fetchCart} from "../redux/resolutionSlice.tsx";
 
 const FinesPage: FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
     const { searchValue, fines, loading, resCount, resId } = useSelector((state: RootState) => state.fines);
+    const cart = useSelector((state: RootState) => state.cart.cart, (prev, next) => {
+        return prev?.Fines.length === next?.Fines.length; // ✅ Обновляем UI только если количество штрафов изменилось
+    });
+
+
     const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated);
 
     useEffect(() => {
         dispatch(getFinesList()); // отправляем `thunk`
     }, [dispatch]);
 
+
+    useEffect(() => {
+        dispatch(getFinesList()); // ✅ Перезагружаем после изменения `resCount`
+    }, [resCount, dispatch]);
+
+    useEffect(() => {
+        const resId = localStorage.getItem('resId');
+        if (resId && resId !== '0') {
+            dispatch(fetchCart()); // ✅ Запрашиваем корзину только если `resId` валиден
+        }
+    }, [resId, dispatch]);
+
+    useEffect(() => {
+        dispatch(getFinesList()); // ✅ Перезагружаем после изменения `resCount`
+    }, [cart, dispatch]);
 
     const handleCardClick = (id: number) => {
 
@@ -32,6 +53,11 @@ const FinesPage: FC = () => {
         navigate(`${ROUTES.BASKET}/${id}`);
     };
 
+
+    const handleButtonClick = (id: number) => {
+
+        dispatch(addFineToResolution(id));
+    };
     return (
         <div className="container">
             <BreadCrumbs crumbs={[{ label: ROUTE_LABELS.ALBUMS }]} />
@@ -64,6 +90,7 @@ const FinesPage: FC = () => {
                                 fullInf={item.fullInf ?? ""}
                                 price={item.price ?? 0}
                                 imageClickHandler={() => handleCardClick(item.fineID)}
+                                buttonClickHandler={() => handleButtonClick(item.fineID)}
                             />
                         </Col>
                     ))}
@@ -71,7 +98,7 @@ const FinesPage: FC = () => {
             )}
 
             <a id={`resID-`} className="cart-icon" onClick={() => handleBasketClick(resId)}>
-                {(!isAuthenticated || !resId) ? null : (
+                {(!isAuthenticated || !resId || resCount === 0) ? null : (
                     <div>
                         <img src="https://www.svgrepo.com/show/133694/act.svg" alt="Корзина"/>
                         <span className="badge">{resCount}</span>
