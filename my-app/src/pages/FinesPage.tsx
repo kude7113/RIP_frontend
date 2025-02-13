@@ -16,9 +16,12 @@ const FinesPage: FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
     const { searchValue, fines, loading, resCount, resId } = useSelector((state: RootState) => state.fines);
-    const cart = useSelector((state: RootState) => state.cart.cart, (prev, next) => {
-        return prev?.Fines.length === next?.Fines.length; // ✅ Обновляем UI только если количество штрафов изменилось
-    });
+    const cart = useSelector(
+        (state: RootState) => state.cart.cart,
+        (prev, next) => {
+            return (prev?.Fines?.length || 0) === (next?.Fines?.length || 0);
+        }
+    );
 
 
     const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated);

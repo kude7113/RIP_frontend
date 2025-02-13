@@ -28,7 +28,7 @@ const CartPage: React.FC = () => {
     if (error) return <div>Ошибка: {error}</div>;
 
     // Функция удаления штрафа
-    const handleDeleteFine = (finReseId: number) => {
+    const handleDeleteFine = (finReseId: string) => {
         console.log("Удаление штрафа с ID:", finReseId);
         dispatch(deleteFinFromRes(finReseId));
     };

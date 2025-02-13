@@ -3,6 +3,11 @@ header {
     background: linear-gradient(to bottom, #2785B7, #165B84);
     padding: 10px 0;
     font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; /* ✅ Фикс для корректного позиционирования */
+    padding-right: 30px; /* Отступ для баланса */
 }
 
 /* Контейнер хедера */
@@ -13,7 +18,8 @@ header {
     max-width: 1000px;
     margin: 0 auto;
     padding: 0 20px;
-    position: relative;
+    flex-grow: 1;
+    position: relative; /* ✅ Фикс для правильного позиционирования элементов */
 }
 
 /* Блок заголовка */
@@ -38,10 +44,10 @@ h1 {
     height: auto;
 }
 
-/* Карта */
+/* ✅ Карта */
 .map {
     position: absolute;
-    right: 20px;
+    right: 120px; /* ✅ Чуть левее, чтобы не налезала на иконку */
     width: 150px;
     height: auto;
 }
@@ -58,4 +64,87 @@ h1 {
     h1 {
         display: none;
     }
+}
+
+/* ✅ Иконка пользователя */
+.user-icon {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    position: absolute;
+    right: 30px; /* ✅ Оставляем 30px отступ */
+    top: 50%;
+    transform: translateY(-50%); /* ✅ Центрируем */
+}
+
+/* ✅ Делаем иконку белой */
+.user-icon svg {
+    color: white;
+    width: 30px;
+    height: 30px;
+}
+
+/* ✅ Убираем стрелочку в Dropdown */
+.user-icon::after {
+    display: none !important;
+}
+
+/* Имя пользователя в выпадающем меню */
+.username-text {
+    font-weight: bold;
+    text-align: center;
+}
+/* ✅ Жестко задаем размеры выпадающего списка */
+.dropdown-menu {
+    width: 100px !important; /* ✅ Принудительно уменьшаем ширину */
+    max-width: 100px !important;
+    padding: 6px 0;
+    border: 1px solid #ccc; /* ✅ Добавляем тонкую границу */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ Жестко задаем размеры выпадающего списка */
+.dropdown-menu {
+    width: 160px !important;
+    max-width: 160px !important;
+    padding: 6px 0;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ Убираем отступ у элементов списка */
+.dropdown-item {
+    padding: 8px 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #2785B7 !important; /* ✅ Основной синий цвет */
+    transition: background 0.2s ease, color 0.2s ease;
+    text-align: center;
+}
+
+/* ✅ Эффект при наведении */
+.dropdown-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* ✅ Эффект при нажатии */
+.dropdown-item:active {
+    background-color: #2785B7 !important; /* ✅ Синяя кнопка при клике */
+    color: white !important; /* ✅ Белый текст */
+}
+
+/* ✅ Разделительная линия */
+.dropdown-divider {
+    border-top: 1px solid #ccc !important;
+    margin: 4px 0 !important;
+}
+
+/* ✅ Имя пользователя */
+.username-text {
+    font-weight: bold;
+    text-align: center;
+    padding: 8px 12px;
+    color: #2785B7 !important;
+    font-size: 16px;
 }

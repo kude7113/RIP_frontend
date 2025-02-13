@@ -5,10 +5,6 @@ import { api  } from "../api";
 import { ALBUMS_MOCK } from "../modules/mock.ts";
 import {fetchCart} from "./resolutionSlice.tsx";
 
-
-
-
-
 export interface FinesState {
     searchValue: string;
     loading: boolean;
@@ -38,6 +34,29 @@ export const getFinesList = createAsyncThunk(
             return response.data;
         } catch (error) {
             return rejectWithValue('Ошибка при загрузке данных');
+        }
+    }
+);
+
+export const deleteFine = createAsyncThunk(
+    "fines/deleteFine",
+    async (fineID: number, { rejectWithValue }) => {
+    try {
+        await api.fines.deleteDelete(fineID);
+        return fineID;
+    } catch (error) {
+        return rejectWithValue("Ошибка при удалении штрафа");
+    }
+});
+
+export const uploadFineImage = createAsyncThunk(
+    "fine/uploadFineImage",
+    async ({ fineID, formData }: { fineID: number; formData: FormData }, { rejectWithValue }) => {
+        try {
+            await api.fine.postFine2(fineID, formData);
+            return { fineID, imageUrl: URL.createObjectURL(formData.get("image") as File) };
+        } catch (error) {
+            return rejectWithValue("Ошибка при загрузке изображения");
         }
     }
 );
@@ -78,10 +97,17 @@ export const addFineToResolution = createAsyncThunk(
     }
 );
 
-
-
-
-
+export const updateFine = createAsyncThunk(
+    'fine/updateFine',
+    async ({ id, fine }: { id: number; fine: DsFines }, { rejectWithValue }) => {
+        try {
+            const response = await api.fine.updateUpdate(id, fine);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue('Ошибка при обновлении штрафа');
+        }
+    }
+);
 
 const finesSlice = createSlice({
     name: 'fines',
@@ -114,6 +140,21 @@ const finesSlice = createSlice({
                 state.resCount = ALBUMS_MOCK.resCount;
                 state.resId = ALBUMS_MOCK.resId;
                 console.log("error")
+            })
+            .addCase(updateFine.fulfilled, (state, action) => {
+                state.fines = state.fines.map((fine) =>
+                    fine.fineID === action.payload.fineID ? action.payload : fine
+                );
+            })
+            .addCase(deleteFine.fulfilled, (state, action) => {
+                state.fines = state.fines.filter((fine) => fine.fineID !== action.payload);
+            })
+            .addCase(uploadFineImage.fulfilled, (state, action) => {
+                state.fines = state.fines.map((fine) =>
+                    fine.fineID === action.payload.fineID
+                        ? { ...fine, imge: action.payload.imageUrl }
+                        : fine
+                );
             });
     },
 });

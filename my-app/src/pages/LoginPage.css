@@ -1,0 +1,57 @@
+/* ✅ Центрируем форму */
+.login-container {
+    max-width: 400px !important;
+    margin: 100px auto !important; /* ✅ Уменьшен отступ сверху */
+    padding: 20px !important;
+    border: 2px solid #2785B7 !important; /* ✅ Добавлена синяя обводка */
+    border-radius: 0 !important; /* ✅ Убраны скругления */
+    background-color: white !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important; /* ✅ Легкая тень */
+}
+
+/* ✅ Стили заголовка */
+.login-title {
+    text-align: center !important;
+    margin-bottom: 20px !important;
+    color: #2785B7 !important; /* ✅ Синий цвет заголовка */
+    font-size: 24px !important;
+    font-weight: bold !important;
+}
+
+/* ✅ Поля ввода */
+.form-control {
+    border: 2px solid #2785B7 !important; /* ✅ Добавлена синяя обводка */
+    border-radius: 0 !important; /* ✅ Убраны скругления */
+    padding: 10px !important;
+    font-size: 16px !important;
+}
+
+/* ✅ Фокус на поле ввода */
+.form-control:focus {
+    border-color: #165B84 !important; /* ✅ Темно-синий цвет при фокусе */
+    box-shadow: 0 0 5px rgba(39, 133, 183, 0.5) !important;
+}
+
+/* ✅ Метки (логин, пароль) */
+.form-label {
+    color: #2785B7 !important; /* ✅ Синий цвет текста */
+    font-weight: bold !important;
+}
+
+/* ✅ Кнопка входа */
+.login-button {
+    width: 100% !important;
+    background-color: #2785B7 !important;
+    border: none !important;
+    padding: 10px !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    color: white !important;
+    border-radius: 0 !important; /* ✅ Убраны скругления */
+    transition: background 0.3s ease !important;
+}
+
+/* ✅ Эффект наведения */
+.login-button:hover {
+    background-color: #165B84 !important;
+}

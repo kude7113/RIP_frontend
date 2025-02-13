@@ -336,11 +336,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @tags Fines
      * @name DeleteDelete
      * @summary Delete a fine by ID
-     * @request DELETE:/fines/delete/{id}
+     * @request DELETE:/fine/delete/{id}
      */
     deleteDelete: (id: number, params: RequestParams = {}) =>
       this.request<string, Record<string, string>>({
-        path: `/fines/delete/${id}`,
+        path: `/fine/delete/${id}`,
         method: "DELETE",
         format: "json",
         ...params,
