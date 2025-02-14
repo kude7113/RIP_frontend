@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
-import { fetchCart, deleteFinFromRes, deleteResolution } from "../redux/resolutionSlice"; // Добавили deleteResolution
+import { fetchCart, deleteFinFromRes, deleteResolution, updateResolutionStatus } from "../redux/resolutionSlice";
 import { BasketCard } from "../components/BasketCard.tsx";
 import { Button, Spinner } from "react-bootstrap";
 import "./BasketPage.css";
@@ -10,10 +10,11 @@ import { useNavigate } from "react-router-dom";
 
 const CartPage: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
-
-    // Извлекаем состояние корзины из Redux
     const { cart, error, isLoading } = useSelector((state: RootState) => state.cart);
     const navigate = useNavigate();
+
+    // Локальное состояние для отображения успешного сообщения
+    const [formSuccess, setFormSuccess] = useState(false);
 
     useEffect(() => {
         dispatch(fetchCart());
@@ -33,10 +34,22 @@ const CartPage: React.FC = () => {
         dispatch(deleteFinFromRes(finReseId));
     };
 
-    // ✅ Функция удаления всей резолюции (корзины)
+    // Функция удаления всей резолюции (корзины)
     const handleDeleteResolution = async () => {
-        await dispatch(deleteResolution()); // Удаляем резолюцию
-        navigate(ROUTES.ALBUMS); // Перенаправляем на главную страницу
+        await dispatch(deleteResolution());
+        navigate(ROUTES.ALBUMS);
+    };
+
+    // Функция для вызова метода "сформировать" (formUpdate)
+    const handleFormUpdate = async () => {
+        const resultAction = await dispatch(updateResolutionStatus());
+        if (updateResolutionStatus.fulfilled.match(resultAction)) {
+            setFormSuccess(true);
+            // Через 3 секунды перенаправляем пользователя
+            setTimeout(() => {
+                navigate(ROUTES.ALBUMS);
+            }, 3000);
+        }
     };
 
     return (
@@ -59,8 +72,38 @@ const CartPage: React.FC = () => {
                                 price={item.fines.price}
                                 imageClickHandler={() => console.log("Нажатие на штраф с ID:", item.fines.fineID)}
                                 onDeleteClick={() => handleDeleteFine(item.fin_res_id)}
+                                onMoreClick={() => navigate(`${ROUTES.ALBUMS}/${item.fines.fineID}`)}
                             />
                         ))}
+                    </div>
+                    {/* Кнопка "Сформировать" */}
+                    <div className="action-buttons">
+                        <Button onClick={handleFormUpdate} className="form-btn">
+                            Сформировать
+                        </Button>
+                        {/* Если резолюция успешно сформирована, показываем сообщение */}
+                        {formSuccess && (
+                            <div className="success-message" style={{ marginTop: "10px", color: "green" }}>
+                                Постановление успешно сформировано!
+                            </div>
+                        )}
+                        {/* Форма для удаления всей резолюции */}
+                        <form
+                            className="delete-form"
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                handleDeleteResolution();
+                            }}
+                            style={{ marginTop: "20px" }}
+                        >
+                            <Button type="submit" className="delete-btn">
+                                <img
+                                    src="https://www.svgrepo.com/show/488897/delete-2.svg"
+                                    alt="Удалить"
+                                    className="delete-icon"
+                                />
+                            </Button>
+                        </form>
                     </div>
                 </>
             ) : (
@@ -68,16 +111,6 @@ const CartPage: React.FC = () => {
                     <Spinner animation="border" />
                 </div>
             )}
-
-            {/* ✅ Форма для удаления всей резолюции */}
-            <form className="delete-form" onSubmit={(e) => {
-                e.preventDefault();
-                handleDeleteResolution();
-            }}>
-                <Button type="submit" className="delete-btn">
-                    <img src="https://www.svgrepo.com/show/488897/delete-2.svg" alt="Удалить" className="delete-icon" />
-                </Button>
-            </form>
         </div>
     );
 };

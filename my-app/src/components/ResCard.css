@@ -1,0 +1,57 @@
+/* Контейнер для карточек, выводит две карточки в ряду */
+.resolution-cards-container {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+    margin: 20px auto !important;
+    max-width: 1000px !important;
+}
+
+/* Основной контейнер карточки */
+.resolution-card {
+    background-color: #fff !important;
+    border: 2px solid #2B88B7 !important;
+    border-radius: 0px !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+    padding: 16px !important;
+    transition: box-shadow 0.2s ease !important;
+}
+
+/* Эффект при наведении на карточку */
+.resolution-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Заголовок карточки */
+.resolution-card__title {
+    font-size: 1.25rem !important;
+    margin-bottom: 12px !important;
+    color: #2B88B7 !important;
+}
+
+/* Тело карточки */
+.resolution-card__body p {
+    margin: 8px 0 !important;
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
+    color: #333 !important;
+}
+
+/* Кнопка - расположена в левом краю */
+.resolution-card__btn {
+    display: inline-block !important;
+    margin: 12px 0 0 0 !important;
+    padding: 10px 20px !important;
+    background-color: #2B88B7 !important;
+    color: #fff !important;
+    border: 2px solid #2B88B7 !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s ease, border-color 0.2s ease !important;
+}
+
+/* При наведении на кнопку */
+.resolution-card__btn:hover {
+    background-color: #165B84 !important;
+    border-color: #165B84 !important;
+}

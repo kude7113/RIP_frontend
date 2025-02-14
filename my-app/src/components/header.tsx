@@ -61,7 +61,7 @@ const Header: React.FC = () => {
                                     <Dropdown.Item  as={Link} to={ROUTES.EDIT}>
                                         Редактировать штрафы
                                     </Dropdown.Item>
-                                    <Dropdown.Item onClick={handleExit}>
+                                    <Dropdown.Item as={Link} to={ROUTES.RESOLUTIONS}>
                                         Постановления
                                     </Dropdown.Item>
                                     <Dropdown.Divider />

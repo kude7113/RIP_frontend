@@ -10,6 +10,7 @@ interface FineEditCardProps {
     onSave: (fineID: number) => void;
     onDelete: (fineID: number) => void;
     onImageUpload: (fineID: number, file: File) => void;
+    isNew?: boolean;
 }
 
 export const EditCard: React.FC<FineEditCardProps> = ({
@@ -18,7 +19,7 @@ export const EditCard: React.FC<FineEditCardProps> = ({
                                                               onSave,
                                                               onDelete,
                                                               onImageUpload,
-                                                          }) => {
+                                                              isNew = false,                                                          }) => {
     return (
         <Card key={fine.fineID} className="fine-edit-card">
             <Card.Img variant="top" src={fine.imge || image} className="fine-image" />
@@ -36,9 +37,11 @@ export const EditCard: React.FC<FineEditCardProps> = ({
                         }
                     }}
                 />
-                <label htmlFor={`file-input-${fine.fineID}`} className="upload-button">
-                    Изменить изображение
-                </label>
+                {(isNew) ? null : (
+                    <label htmlFor={`file-input-${fine.fineID}`} className="upload-button">
+                        Изменить изображение
+                    </label>
+                )}
             </div>
 
             <Card.Body>

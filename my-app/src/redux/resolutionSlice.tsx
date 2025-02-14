@@ -43,7 +43,7 @@ export const deleteFinFromRes = createAsyncThunk(
     }
 );
 
-/* ✅ Удаление resolution (корзины) */
+/* ✅ Удаление резолюции (корзины) */
 export const deleteResolution = createAsyncThunk(
     'cart/deleteResolution',
     async (_, { rejectWithValue }) => {
@@ -83,6 +83,38 @@ export const fetchCart = createAsyncThunk(
         } catch (error) {
             console.error("❌ Ошибка загрузки корзины:", error);
             return thunkAPI.rejectWithValue('Ошибка при загрузке корзины');
+        }
+    }
+);
+
+/* ✅ Обновление статуса резолюции (formUpdate) */
+export const updateResolutionStatus = createAsyncThunk(
+    'cart/updateResolutionStatus',
+    async (_, { rejectWithValue }) => {
+        try {
+            // Вызываем API-метод без передачи id, т.к. backend сам определяет пользователя
+            const response = await api.resolution.formUpdate();
+            console.log("Статус резолюции обновлен:", response.data);
+            return response.data;
+        } catch (error: any) {
+            console.error("Ошибка обновления статуса резолюции:", error);
+            return rejectWithValue('Ошибка обновления статуса резолюции');
+        }
+    }
+);
+
+/* ✅ Завершение резолюции (обновление статуса) */
+export const completeUpdateResolution = createAsyncThunk(
+    'cart/completeUpdateResolution',
+    async (id: number, { rejectWithValue }) => {
+        try {
+            // Вызываем API-метод completeUpdate с переданным id
+            const response = await api.resolution.completeUpdate(id);
+            console.log("Резолюция завершена:", response.data);
+            return response.data;
+        } catch (error: any) {
+            console.error("Ошибка завершения резолюции:", error);
+            return rejectWithValue('Ошибка завершения резолюции');
         }
     }
 );
@@ -146,6 +178,40 @@ const cartSlice = createSlice({
             .addCase(deleteResolution.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload || 'Ошибка удаления резолюции';
+            })
+
+            /* ✅ Завершение резолюции */
+            .addCase(completeUpdateResolution.pending, (state) => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(completeUpdateResolution.fulfilled, (state, action) => {
+                state.isLoading = false;
+                if (state.cart) {
+                    // Обновляем резолюцию в корзине новыми данными
+                    state.cart.Res = action.payload;
+                }
+                console.log("Резолюция успешно завершена.");
+            })
+            .addCase(completeUpdateResolution.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload || 'Ошибка завершения резолюции';
+            })
+            .addCase(updateResolutionStatus.pending, (state) => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(updateResolutionStatus.fulfilled, (state, action) => {
+                state.isLoading = false;
+                if (state.cart) {
+                    // Обновляем резолюцию в корзине новыми данными из formUpdate
+                    state.cart.Res = action.payload;
+                }
+                console.log("Статус резолюции успешно обновлен.");
+            })
+            .addCase(updateResolutionStatus.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload || 'Ошибка обновления статуса резолюции';
             });
     },
 });

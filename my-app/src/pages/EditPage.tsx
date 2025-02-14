@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Spinner } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
-import { getFinesList, updateFine, deleteFine, uploadFineImage } from "../redux/fineSlice";
+import { getFinesList, updateFine, deleteFine, uploadFineImage, createFine } from "../redux/fineSlice";
 import { EditCard } from "../components/EditCard";
 import "./EditPage.css";
 
@@ -14,6 +14,7 @@ const FineEditPage: React.FC = () => {
 
     // Локальное состояние для редактируемых данных
     const [editedFines, setEditedFines] = useState(fines);
+    const [newFine, setNewFine] = useState<DsFines | null>(null); // Для нового штрафа
 
     useEffect(() => {
         dispatch(getFinesList());
@@ -25,20 +26,22 @@ const FineEditPage: React.FC = () => {
 
     // ✅ Обработчик изменения полей
     const handleChange = (id: number, field: string, value: string | number) => {
-        setEditedFines((prevFines) =>
-            prevFines.map((fine) =>
-                fine.fineID === id ? { ...fine, [field]: value } : fine
-            )
-        );
+        if (newFine && newFine.fineID === id) {
+            setNewFine({ ...newFine, [field]: value });
+        } else {
+            setEditedFines((prevFines) =>
+                prevFines.map((fine) =>
+                    fine.fineID === id ? { ...fine, [field]: value } : fine
+                )
+            );
+        }
     };
 
-    // ✅ Обработчик сохранения изменений
+    // ✅ Обработчик сохранения изменений (для редактирования)
     const handleSave = (fineID: number) => {
         const updatedFine = editedFines.find((fine) => fine.fineID === fineID);
-        if (updatedFine && fineID) {
+        if (updatedFine) {
             dispatch(updateFine({ id: fineID, fine: updatedFine }));
-        } else {
-            console.error("Ошибка: fineID не определен", updatedFine);
         }
     };
 
@@ -54,21 +57,67 @@ const FineEditPage: React.FC = () => {
         dispatch(uploadFineImage({ fineID, formData }));
     };
 
+    // ✅ Добавление нового штрафа
+    const handleAddFine = () => {
+        setNewFine({
+            fineID: Date.now(), // Временный ID до создания на сервере
+            title: "",
+            price: 0,
+            fullInf: "",
+            dopInf: "",
+            imge: "",
+        });
+    };
+
+    // ✅ Сохранение нового штрафа
+    const handleSaveNewFine = () => {
+        if (newFine) {
+            dispatch(createFine(newFine)).then(() => {
+                setNewFine(null); // Очистка формы после создания
+                dispatch(getFinesList()); // Обновляем список штрафов
+            });
+        }
+    };
+
+    // ✅ Отмена добавления нового штрафа
+    const handleCancelNewFine = () => {
+        setNewFine(null);
+    };
+
     return (
         <div className="fine-edit-page">
+            <div className="add-btn-container">
+                <button className="add-btn" onClick={handleAddFine}>
+                    <img src="https://www.svgrepo.com/show/510785/add-plus.svg"/>
+                </button>
+            </div>
+
             {loading ? (
-                <Spinner animation="border" />
+                <Spinner animation="border"/>
             ) : (
-                editedFines.map((fine) => (
-                    <EditCard
-                        key={fine.fineID}
-                        fine={fine}
-                        onChange={handleChange}
-                        onSave={handleSave}
-                        onDelete={handleDelete}
-                        onImageUpload={handleImageUpload}
-                    />
-                ))
+                <>
+                    {newFine && (
+                        <EditCard
+                            fine={newFine}
+                            onChange={handleChange}
+                            onSave={handleSaveNewFine}
+                            onDelete={handleCancelNewFine} // Отмена добавления штрафа
+                            onImageUpload={() => {
+                            }} // Изображение загружается только после создания
+                            isNew={true} // Доп. пропс для стилизации
+                        />
+                    )}
+                    {editedFines.map((fine) => (
+                        <EditCard
+                            key={fine.fineID}
+                            fine={fine}
+                            onChange={handleChange}
+                            onSave={handleSave}
+                            onDelete={handleDelete}
+                            onImageUpload={handleImageUpload}
+                        />
+                    ))}
+                </>
             )}
         </div>
     );

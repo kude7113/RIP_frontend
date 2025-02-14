@@ -21,6 +21,21 @@ const initialState: FinesState = {
     resId: 0,
 };
 
+
+// ✅ Thunk для создания нового штрафа
+export const createFine = createAsyncThunk(
+    'fine/createFine',
+    async (newFine: DsFines, { rejectWithValue, dispatch }) => {
+        try {
+            const response = await api.fine.createCreate(newFine);
+            dispatch(getFinesList()); // ✅ Обновляем список штрафов после создания
+            return response.data;
+        } catch (error) {
+            return rejectWithValue("Ошибка при создании штрафа");
+        }
+    }
+);
+
 export const getFinesList = createAsyncThunk(
     'fine/fineList',
     async (_, { getState, rejectWithValue }) => {
@@ -155,6 +170,9 @@ const finesSlice = createSlice({
                         ? { ...fine, imge: action.payload.imageUrl }
                         : fine
                 );
+            })
+            .addCase(createFine.fulfilled, (state, action) => {
+                state.fines.push(action.payload); // ✅ Добавляем новый штраф в список
             });
     },
 });

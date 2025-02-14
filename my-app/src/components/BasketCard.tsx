@@ -3,6 +3,8 @@ import "./BasketCard.css";
 import image from "../DefaultImage.jpg";
 import {useSelector} from "react-redux";
 import {RootState} from "../redux/store.tsx";
+import {ROUTES} from "../modules/Routes.tsx";
+import {useNavigate} from "react-router-dom";
 
 interface IBasketCardProps {
     dopInf: string;
@@ -14,6 +16,8 @@ interface IBasketCardProps {
     id: string;
     imageClickHandler: () => void;
     onDeleteClick: () => void; /* Функция для удаления */
+    onMoreClick: () => void;
+
 }
 
 export const BasketCard: FC<IBasketCardProps> = ({
@@ -24,7 +28,8 @@ export const BasketCard: FC<IBasketCardProps> = ({
                                                      count,
                                                      id,
                                                      imageClickHandler,
-                                                     onDeleteClick
+                                                     onDeleteClick,
+                                                     onMoreClick,
                                                  }) => {
     return (
         <div className="basketCardContainer" id={id}>
@@ -39,7 +44,7 @@ export const BasketCard: FC<IBasketCardProps> = ({
             <div className="basketCardContent">
                 <h5 className="basketCardTitle">{title}</h5>
                 <div className="basketCardButtonWrapper">
-                    <a href={`http://localhost:8080/more/${id}`} className="basketCardLink">
+                    <a onClick={onMoreClick} className="basketCardLink">
                         Подробнее
                     </a>
                     <button className="basketCardDelete" onClick={onDeleteClick}>

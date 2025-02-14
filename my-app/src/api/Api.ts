@@ -256,11 +256,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @tags Fines
      * @name CreateCreate
      * @summary Create a new fine
-     * @request POST:/fine/create/{id}
+     * @request POST:/fine/create
      */
-    createCreate: (id: string, fine: DsFines, params: RequestParams = {}) =>
+    createCreate: (fine: DsFines, params: RequestParams = {}) =>
       this.request<DsFines, Record<string, string>>({
-        path: `/fine/create/${id}`,
+        path: `/fine/create`,
         method: "POST",
         body: fine,
         type: ContentType.Json,
@@ -415,11 +415,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @tags Resolutions
      * @name CompleteUpdate
      * @summary Set status of resolution by admin
-     * @request PUT:/resolution/complete/
+     * @request PUT:/resolution/complete/{id}
      */
     completeUpdate: (id: number, params: RequestParams = {}) =>
       this.request<DsResolutions, Record<string, string>>({
-        path: `/resolution/complete/`,
+        path: `/resolution/complete/${id}`,
         method: "PUT",
         format: "json",
         ...params,

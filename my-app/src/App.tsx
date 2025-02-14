@@ -13,6 +13,7 @@ import { useEffect } from 'react';
 import { setCredentials } from './redux/userSlice';
 import BasketPage from "./pages/BasketPage.tsx";
 import EditPage from "./pages/EditPage.tsx";
+import ResolutionsPage from "./pages/ResolutionsPage.tsx";
 
 function App() {
     const dispatch = useDispatch();
@@ -37,6 +38,7 @@ function App() {
                 <Route path={`${ROUTES.LOGIN}`} element={<LoginPage />} />
                 <Route path={`${ROUTES.BASKET}/:id`} element={<BasketPage />} />
                 <Route path={ROUTES.EDIT} index element={<EditPage />} />
+                <Route path={ROUTES.RESOLUTIONS} index element={<ResolutionsPage />} />
             </Routes>
         </BrowserRouter>
     );

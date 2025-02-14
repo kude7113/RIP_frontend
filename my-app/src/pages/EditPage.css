@@ -10,7 +10,7 @@
     width: 350px !important;
     border: 2px solid #2785B7 !important;
     padding: 15px !important;
-    border-radius: 5px !important;
+    border-radius: 0px !important;
     background-color: white !important;
 }
 
@@ -78,4 +78,48 @@
 
 .delete-button:hover {
     background-color: darkred !important;
+}
+/* Стили кнопки добавления */
+.add-btn {
+    text-decoration: none;
+    border: 3px solid #2785B7; /* Более заметный синий ободок */
+    background-color: transparent; /* Прозрачный фон */
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px; /* Увеличена ширина */
+    height: 70px; /* Увеличена высота */
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    box-sizing: border-box;
+    cursor: pointer;
+    border-radius: 50%; /* Круглая форма */
+    position: relative;
+    margin: 0 auto; /* Центрирование */
+    display: block;
+    margin-bottom: 20px; /* Отступ снизу */
+}
+
+/* Стили кнопки при наведении */
+.add-btn:hover {
+    background-color: #2785B7; /* Синий фон */
+    color: white;
+    transform: scale(1.1); /* Легкое увеличение при наведении */
+}
+
+/* Стили иконки внутри кнопки */
+.add-btn img {
+    width: 32px; /* Увеличенный размер иконки */
+    height: 32px;
+}
+
+/* Размещение кнопки по центру страницы */
+.add-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px; /* Отступ перед списком штрафов */
 }
