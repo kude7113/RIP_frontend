@@ -1,10 +1,14 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import mkcert from 'vite-plugin-mkcert'
+import fs from 'fs';
+import path from 'path';
 
 export default defineConfig({
   plugins: [
       react(),
+      mkcert(),
     VitePWA({
       registerType: 'autoUpdate',
       devOptions: {
@@ -48,7 +52,12 @@ export default defineConfig({
     })
   ],
   base: "/RIP_frontend",
+
   server: {
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, 'cert.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'cert.crt')),
+    },
     port: 3000,
     proxy: {
       "/api": {

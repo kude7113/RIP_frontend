@@ -25,11 +25,12 @@ const ResolutionCard = ({ resolution, onFinish }) => {
         Car_License_Plate,
         User,
         Head_Of_Depart,
+        Qr, // Добавляем поле QR
     } = resolution;
 
     return (
         <div className="resolution-card">
-            <h3 className="resolution-card__title">Резолюция #{Resolution_ID}</h3>
+            <h3 className="resolution-card__title">Постановление #{Resolution_ID}</h3>
             <div className="resolution-card__body">
                 <p><strong>Статус:</strong> {Status}</p>
                 <p><strong>Дата создания:</strong> {formatDate(Date_Created)}</p>
@@ -39,6 +40,11 @@ const ResolutionCard = ({ resolution, onFinish }) => {
                 <p><strong>Пользователь:</strong> {User}</p>
                 <p><strong>Руководитель отдела:</strong> {Head_Of_Depart || 'Не указан'}</p>
             </div>
+            {Qr && (
+                <div className="resolution-card__qr">
+                    <img src={`data:image/png;base64,${Qr}`} alt="QR Code" />
+                </div>
+            )}
             {Status === 'сформирован' && (
                 <button className="resolution-card__btn" onClick={() => onFinish(Resolution_ID)}>
                     Подтвердить
