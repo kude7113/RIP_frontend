@@ -5,7 +5,6 @@ import { ROUTES, ROUTE_LABELS } from "../modules/Routes.tsx";
 import { useParams } from "react-router-dom";
 import { Fine, getAlbumById } from "../modules/itunesApi";
 import { Spinner } from "react-bootstrap";
-// import defaultImage from "../DefaultImage.jpg";
 import { ALBUMS_MOCK } from "../modules/mock.ts";
 import {MoreCard} from "../components/MoreCard.tsx";
 

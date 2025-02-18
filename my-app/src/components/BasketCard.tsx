@@ -1,10 +1,7 @@
 import { FC } from "react";
 import "./BasketCard.css";
 import image from "../DefaultImage.jpg";
-import {useSelector} from "react-redux";
-import {RootState} from "../redux/store.tsx";
-import {ROUTES} from "../modules/Routes.tsx";
-import {useNavigate} from "react-router-dom";
+
 
 interface IBasketCardProps {
     dopInf: string;

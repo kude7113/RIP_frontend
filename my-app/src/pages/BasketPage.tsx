@@ -52,6 +52,8 @@ const CartPage: React.FC = () => {
         }
     };
 
+    // @ts-ignore
+    // @ts-ignore
     return (
         <div className="cart-page">
             {isLoading ? (
@@ -64,11 +66,16 @@ const CartPage: React.FC = () => {
                         {cart.Fines.map((item, index) => (
                             <BasketCard
                                 key={index}
+                                // @ts-ignore
                                 dopInf={item.fines.dopInf}
                                 count={item.count}
+                                // @ts-ignore
                                 imge={item.fines.imge}
+                                // @ts-ignore
                                 title={item.fines.title}
+                                // @ts-ignore
                                 fullInf={item.fines.fullInf}
+                                // @ts-ignore
                                 price={item.fines.price}
                                 imageClickHandler={() => console.log("Нажатие на штраф с ID:", item.fines.fineID)}
                                 onDeleteClick={() => handleDeleteFine(item.fin_res_id)}

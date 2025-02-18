@@ -1,6 +1,8 @@
+// @ts-ignore
 import React from 'react';
 import './ResCard.css';
 
+// @ts-ignore
 const formatDate = (dateStr) => {
     const date = new Date(dateStr);
     if (isNaN(date.getTime()) || dateStr.startsWith('0001')) {
@@ -15,6 +17,7 @@ const formatDate = (dateStr) => {
     });
 };
 
+// @ts-ignore
 const ResolutionCard = ({ resolution, onFinish }) => {
     const {
         Resolution_ID,
@@ -27,6 +30,9 @@ const ResolutionCard = ({ resolution, onFinish }) => {
         Head_Of_Depart,
         Qr, // Добавляем поле QR
     } = resolution;
+
+
+    const isAdmin = localStorage.getItem('isAdmin') === 'true';
 
     return (
         <div className="resolution-card">
@@ -45,7 +51,7 @@ const ResolutionCard = ({ resolution, onFinish }) => {
                     <img src={`data:image/png;base64,${Qr}`} alt="QR Code" />
                 </div>
             )}
-            {Status === 'сформирован' && (
+            {isAdmin && Status === 'сформирован' && (
                 <button className="resolution-card__btn" onClick={() => onFinish(Resolution_ID)}>
                     Подтвердить
                 </button>

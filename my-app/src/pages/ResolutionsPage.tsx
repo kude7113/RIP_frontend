@@ -1,36 +1,54 @@
+// @ts-ignore
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { startPollingResolutions, stopPollingResolutions, setFilters, setIsPolling } from '../redux/spResSlice.tsx';
 import ResolutionCard from '../components/ResCard.tsx';
 import './ResolutionsPage.css';
 import { completeUpdateResolution } from '../redux/resolutionSlice.tsx';
+import { RootState } from "../redux/store.tsx";
 
 const ResolutionsPage = () => {
     const dispatch = useDispatch();
+    // @ts-ignore
     const { filters, resolutions, status, error } = useSelector(state => state.resolutions);
+    const isAdmin = localStorage.getItem('isAdmin') === 'true';
+    const username = useSelector((state: RootState) => state.user.login);
 
-    // Локальное состояние для фильтров (даты, статус и фильтрация по имени)
+    // Локальное состояние для фильтров (даты, статус)
     const [localDateFrom, setLocalDateFrom] = useState(filters.dateFrom);
     const [localDateTo, setLocalDateTo] = useState(filters.dateTo);
     const [localStatus, setLocalStatus] = useState(filters.status);
+    // Фильтр по пользователю доступен только для админа
     const [userNameFilter, setUserNameFilter] = useState('');
 
     useEffect(() => {
-        // Включаем polling при монтировании страницы
         dispatch(setIsPolling(true));
+        // @ts-ignore
         dispatch(startPollingResolutions());
         return () => {
-            // Останавливаем polling при размонтировании
+            // @ts-ignore
             dispatch(stopPollingResolutions());
         };
     }, [dispatch]);
 
+    // @ts-ignore
     const handleFinishResolution = (id) => {
+        // @ts-ignore
         dispatch(completeUpdateResolution(id));
     };
 
+    // @ts-ignore
+    const renderResolution = (resolution) => (
+        <ResolutionCard
+            key={resolution.Resolution_ID}
+            resolution={resolution}
+            onFinish={handleFinishResolution}
+        />
+    );
+
     const handleSearch = () => {
         // Останавливаем polling, обновляем фильтры и перезапускаем polling
+        // @ts-ignore
         dispatch(stopPollingResolutions());
         dispatch(setFilters({
             dateFrom: localDateFrom,
@@ -38,11 +56,17 @@ const ResolutionsPage = () => {
             status: localStatus,
         }));
         dispatch(setIsPolling(true));
+        // @ts-ignore
         dispatch(startPollingResolutions());
     };
 
-    // Фильтрация по имени пользователя (frontend)
+    // Фильтрация карточек:
+    // Если пользователь не админ, показываем только его карточки.
+    // Если админ, то дополнительно можно фильтровать по имени.
     const filteredResolutions = resolutions.filter(resolution => {
+        if (!isAdmin) {
+            return resolution.User.toLowerCase() === username.toLowerCase();
+        }
         if (!userNameFilter) return true;
         return resolution.User.toLowerCase().includes(userNameFilter.toLowerCase());
     });
@@ -92,24 +116,22 @@ const ResolutionsPage = () => {
                         placeholder="Фильтр по имени"
                         value={userNameFilter}
                         onChange={(e) => setUserNameFilter(e.target.value)}
+                        disabled={!isAdmin} // Доступно только для админа
                     />
                 </div>
                 <div className="resolutions-page__filter-group">
-                    <button className="resolutions-page__search-btn" onClick={handleSearch}>
+                    <button
+                        className="resolutions-page__search-btn"
+                        onClick={handleSearch}
+                        disabled={!isAdmin} // Доступно только для админа
+                    >
                         Поиск
                     </button>
                 </div>
             </div>
-
             <div className="resolution-cards-container">
                 {status === 'failed' && <p>Ошибка: {error}</p>}
-                {filteredResolutions.map(resolution => (
-                    <ResolutionCard
-                        key={resolution.Resolution_ID}
-                        resolution={resolution}
-                        onFinish={handleFinishResolution}
-                    />
-                ))}
+                {filteredResolutions.map(renderResolution)}
             </div>
         </div>
     );

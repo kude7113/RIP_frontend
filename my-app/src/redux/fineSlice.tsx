@@ -68,6 +68,7 @@ export const uploadFineImage = createAsyncThunk(
     "fine/uploadFineImage",
     async ({ fineID, formData }: { fineID: number; formData: FormData }, { rejectWithValue }) => {
         try {
+            // @ts-ignore
             await api.fine.postFine2(fineID, formData);
             return { fineID, imageUrl: URL.createObjectURL(formData.get("image") as File) };
         } catch (error) {
@@ -84,6 +85,7 @@ export const addFineToResolution = createAsyncThunk(
             console.log(`✅ Штраф ${fineId} добавлен в резолюцию:`, response.data);
 
             // ✅ Получаем новый `resId` от сервера
+            // @ts-ignore
             let updatedResId = response.data?.resId || localStorage.getItem('resId');
 
             if (updatedResId && updatedResId !== '0') {
@@ -145,6 +147,7 @@ const finesSlice = createSlice({
                 state.fines = action.payload?.fines ?? []; // Если fines нет, ставим пустой массив
                 state.resCount = action.payload?.resCount ?? 0;
                 state.resId = action.payload?.resId ?? 0;
+                // @ts-ignore
                 localStorage.setItem('resId', action.payload.resId);
             })
             .addCase(getFinesList.rejected, (state) => {

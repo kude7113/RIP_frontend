@@ -556,6 +556,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @summary Update user by ID
      * @request PUT:/users/update
      */
+    // @ts-ignore
     updateUpdate: (id: number, user: DsUsers, params: RequestParams = {}) =>
       this.request<DsUsers, Record<string, string>>({
         path: `/users/update`,

@@ -61,13 +61,12 @@ const Header: React.FC = () => {
                                     <Dropdown.Item  as={Link} to={ROUTES.EDIT}>
                                         Редактировать штрафы
                                     </Dropdown.Item>
-                                    <Dropdown.Item as={Link} to={ROUTES.RESOLUTIONS}>
-                                        Постановления
-                                    </Dropdown.Item>
-                                    <Dropdown.Divider />
                                 </>
                             )}
-
+                            <Dropdown.Item as={Link} to={ROUTES.RESOLUTIONS}>
+                                Постановления
+                            </Dropdown.Item>
+                            <Dropdown.Divider />
                             <Dropdown.Item onClick={handleExit}>
                                 Выйти
                             </Dropdown.Item>

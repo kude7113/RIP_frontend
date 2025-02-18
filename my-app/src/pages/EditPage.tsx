@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Button, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { getFinesList, updateFine, deleteFine, uploadFineImage, createFine } from "../redux/fineSlice";
 import { EditCard } from "../components/EditCard";
 import "./EditPage.css";
+import {DsFines} from "../api/Api.ts";
 
 const FineEditPage: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();

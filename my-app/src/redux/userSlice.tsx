@@ -60,6 +60,7 @@ const userSlice = createSlice({
                 state.error = null;
             })
             .addCase(loginUserAsync.fulfilled, (state, action) => {
+                // @ts-ignore
                 const { token, login, isAdmin } = action.payload;
                 state.token = token;
                 state.login = login;
